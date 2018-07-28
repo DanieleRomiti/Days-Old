@@ -1,0 +1,51 @@
+def leap_year(year):
+    if year % 4 != 0:
+        return 0
+    elif year % 100 != 0:
+        return 1
+    elif year % 400 != 0:
+        return 0
+    else:
+        return 1
+
+def day_by_date(year1, month1, day1):
+    
+    daysOfMonths = [0]
+    i_year1 = 0
+    i_month1 = 1
+    count_leap1 = 0
+    count_year1 = 0
+    count_month1 = 0
+
+    if leap_year(year1) == 1:
+        daysOfMonths = [ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    else:
+        daysOfMonths = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+    
+    while i_year1 < year1:
+        count_leap1 = count_leap1 + leap_year(i_year1)
+        count_year1 = count_year1 + 365
+        i_year1 = i_year1 + 1
+    
+    while i_month1 < month1:
+        count_month1 = count_month1 + daysOfMonths[i_month1 - 1]
+        i_month1 = i_month1 +1
+    
+    total = count_leap1 + count_year1 + count_month1 + day1
+    return total
+
+def daysBetweenDates(year1, month1, day1, year2, month2, day2):
+
+    days_date1 = day_by_date(year1, month1, day1)
+    days_date2 = day_by_date(year2, month2, day2)
+    total = days_date2 - days_date1
+
+    return total
+    
+
+print (daysBetweenDates(2012,1,1,2012,2,28))
+print (daysBetweenDates(2012,1,1,2012,3,1))
+print (daysBetweenDates(2011,6,30,2012,6,30))
+print (daysBetweenDates(2011,1,1,2012,8,8))
+print (daysBetweenDates(1900,1,1,1999,12,31))
